@@ -11,10 +11,16 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="ONUS Capital Partners">
 <meta property="og:description" content="Multi-Family Office híbrido y firma boutique de inversión internacional.">
-<meta property="og:image" content="img/compartir.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta property="og:url" content="https://pinsendev.github.io/onus-capital/">
+<!-- absoluta: WhatsApp y LinkedIn no resuelven una ruta relativa al pintar la vista previa del enlace -->
+<meta property="og:image" content="https://pinsendev.github.io/onus-capital/img/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+<!-- crossorigin: sin él, el exportador a PNG no puede leer la hoja y las piezas salen sin las fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root{
   /* Del logotipo de ONUS: el petróleo de las letras y el latón de la flecha */
@@ -387,6 +393,84 @@ button{cursor:pointer}
 .aviso-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,16px);background:var(--abismo);color:#fff;padding:14px 22px;border-radius:var(--r);font-size:15px;opacity:0;pointer-events:none;transition:all .25s;z-index:200;max-width:calc(100vw - 32px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .aviso-toast.ver{opacity:1;transform:translate(-50%,0)}
 .aviso-toast::before{content:"";display:inline-block;width:8px;height:8px;background:var(--laton);border-radius:50%;margin-right:12px;vertical-align:middle}
+/* La foto (o el plano) de la tarjeta del marketplace, con su descuento */
+.foto-op{position:relative;aspect-ratio:12/7;background:var(--abismo);overflow:hidden}
+.foto-op img,.foto-op svg{width:100%;height:100%;object-fit:cover;display:block}
+.foto-op .desc-op{position:absolute;right:12px;top:12px;background:rgba(15,76,74,.94);border:1px solid var(--laton);color:var(--laton-claro);font-family:var(--serif);font-size:22px;line-height:1;padding:8px 12px;border-radius:4px}
+.foto-op .desc-op small{display:block;font-family:var(--sans);font-size:10px;color:#fff;margin-top:3px}
+
+/* Las dos piezas de cada operación, con la estructura de las que ONUS manda hoy a sus inversores:
+   «Oportunidad ONUS» (el escaparate) y «Cuadro de inversión» (los números) */
+.fichas-onus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+@media (max-width:1180px){.fichas-onus{grid-template-columns:minmax(0,1fr)}}
+.pieza-marco{display:grid;gap:12px;justify-items:center;min-width:0}
+.pieza-marco .boton{justify-self:center}
+.pieza{background:var(--porcelana);border:1px solid var(--filo);border-radius:6px;overflow:hidden;width:100%;max-width:620px}
+.pieza .cabecera{position:relative;height:300px;overflow:hidden;background:var(--abismo)}
+.pieza.cuadro .cabecera{height:170px}
+.pieza .cabecera img,.pieza .cabecera svg{width:100%;height:100%;object-fit:cover;display:block}
+.pieza .cabecera::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,30,29,.55) 0%,rgba(7,30,29,.25) 26%,rgba(7,30,29,0) 40%,rgba(243,244,242,0) 62%,#F3F4F2 100%)}
+/* en el cuadro la foto es una franja baja: el velo llega más abajo para que la fecha se lea */
+.pieza.cuadro .cabecera::after{background:linear-gradient(180deg,rgba(7,30,29,.6) 0%,rgba(7,30,29,.35) 45%,rgba(243,244,242,0) 70%,#F3F4F2 100%)}
+.pieza .sello{position:absolute;z-index:1;left:24px;top:22px;height:32px;line-height:32px;background:var(--laton);color:var(--abismo);font-size:13px;font-weight:600;padding:0 15px;border-radius:999px}
+.pieza .fecha{position:absolute;z-index:1;left:26px;top:60px;color:#fff;font-size:13px;font-weight:500;text-shadow:0 1px 2px rgba(0,0,0,.6),0 1px 10px rgba(0,0,0,.45)}
+.pieza .descuento{position:absolute;z-index:1;right:20px;top:18px;background:rgba(15,76,74,.94);border:1px solid var(--laton);color:#fff;border-radius:6px;padding:10px 16px;text-align:center}
+.pieza .descuento b{display:block;font-family:var(--serif);font-weight:400;font-size:42px;line-height:1.15;color:var(--laton-claro)}
+.pieza .descuento span{display:block;font-size:12px;margin-top:4px}
+.pieza .contenido{padding:0 28px 22px;position:relative}
+.pieza h3{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.06;color:var(--petroleo);margin:0 0 10px;letter-spacing:-.01em}
+.pieza.cuadro h3{font-size:30px}
+.pieza .lugar{margin:0 0 6px;font-size:15px;color:var(--tinta)}
+.pieza .rasgos{margin:0 0 4px;color:var(--laton-texto);font-weight:600;font-size:14px}
+.pieza .extras{margin:0 0 14px;color:var(--gris);font-size:13px;font-style:italic}
+.pieza .pastillas{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+/* Pastillas, sello y ahorro centrados con el interlineado igual a la altura: el exportador a PNG desplaza el texto
+   centrado con flex, y este no */
+.pieza .pastillas span{display:inline-block;height:32px;line-height:30px;font-size:13px;font-weight:600;padding:0 14px;border-radius:999px;border:1px solid var(--petroleo);color:var(--petroleo);background:#fff}
+.pieza .pastillas span:first-child{background:var(--laton);border-color:var(--laton);color:var(--abismo)}
+.pieza .regla{width:96px;height:3px;background:var(--laton);margin:0 0 16px}
+.pieza .etq{font-size:13px;font-weight:600;color:var(--petroleo);margin:0}
+/* Interlineado holgado: el exportador a PNG mide la Caslon con más ascendente que el navegador y, ajustado, montaba
+   el precio sobre la línea de honorarios */
+.pieza .precio{font-family:var(--serif);font-size:66px;line-height:1.15;color:var(--laton-texto);margin:0 0 10px}
+.pieza .honor{color:var(--petroleo);font-weight:600;font-size:14px;margin:0 0 8px}
+.pieza .comparable{font-size:15px;margin:0 0 12px}
+.pieza .comparable .tachado{color:var(--gris);margin-left:6px;white-space:nowrap;text-decoration:line-through;text-decoration-thickness:1px}
+.pieza .ahorro{display:inline-block;height:40px;line-height:40px;background:var(--petroleo);color:#fff;font-weight:600;font-size:15px;padding:0 18px;border-radius:999px}
+.pieza .refs{margin-top:22px;background:#fff;border:1px solid var(--filo);border-top:3px solid var(--laton);border-radius:6px;padding:18px;display:grid;grid-template-columns:1fr 46%;gap:16px;align-items:center}
+.pieza .refs b{display:block;color:var(--laton-texto);font-size:14px;margin-bottom:2px}
+.pieza .refs .ref{display:block;font-weight:600;color:var(--petroleo);font-size:13px;font-variant-numeric:tabular-nums;word-break:break-all}
+.pieza .refs p{margin:8px 0 0;font-size:13px;color:var(--pizarra)}
+.pieza .refs svg{width:100%;height:auto;border-radius:4px;border:1px solid var(--filo)}
+.pieza .firma-pieza{display:flex;flex-direction:column;align-items:center;padding:22px 0 0}
+.pieza .firma-pieza img{height:30px;width:auto}
+.pieza .firma-pieza span{font-size:11px;color:var(--pizarra);margin-top:6px}
+.pieza .pie-pieza{display:flex;justify-content:space-between;gap:12px;border-top:2px solid var(--laton);margin-top:16px;padding-top:9px;font-size:12px;color:var(--gris)}
+.pieza .pie-pieza b{color:var(--petroleo)}
+.pieza .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0 22px}
+.pieza .tile{background:#fff;border:1px solid var(--filo);border-top:2px solid var(--laton);border-radius:6px;padding:12px 6px;text-align:center}
+.pieza .tile b{display:block;font-family:var(--serif);font-weight:400;font-size:20px;color:var(--laton-texto);line-height:1.25;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pieza .tile span{display:block;font-size:11px;font-weight:600;color:var(--petroleo);margin-top:5px}
+.pieza .tile small{display:block;font-size:10px;color:var(--gris);font-style:italic;line-height:1.3}
+.pieza .tile.fuerte{background:var(--petroleo);border-color:var(--petroleo)}
+.pieza .tile.fuerte b{color:var(--laton-claro)}
+.pieza .tile.fuerte span,.pieza .tile.fuerte small{color:#fff}
+.pieza h4{font-size:16px;font-weight:600;color:var(--petroleo);margin:0 0 8px}
+.pieza h4 small{font-weight:400;font-style:italic;color:var(--gris);font-size:12px;margin-left:6px}
+.tabla-pieza{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px}
+.tabla-pieza th{background:var(--petroleo);color:#fff;font-weight:600;text-align:left;padding:8px 10px}
+.tabla-pieza th.r,.tabla-pieza td.r{text-align:right;white-space:nowrap}
+.tabla-pieza td{padding:7px 10px;border-bottom:1px solid #fff;vertical-align:middle;font-variant-numeric:tabular-nums}
+.tabla-pieza tbody tr:nth-child(odd) td{background:#EAEBE7}
+.tabla-pieza td b{display:block;color:var(--petroleo);font-weight:600}
+.tabla-pieza td small{display:block;color:var(--gris);font-style:italic;font-size:11px}
+.tabla-pieza tr.total td,.tabla-pieza tbody tr.fuerte td{background:#E6DFCD;font-weight:600}
+.tabla-pieza tr.fuerte td b{color:var(--tinta)}
+.pieza .letra{font-size:10.5px;color:var(--gris);font-style:italic;line-height:1.5;margin:0}
+.bajo-fichas{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:24px 0 0}
+.bajo-fichas .escenarios{padding:0;max-width:440px;flex:1}
+@media (max-width:560px){.pieza .tiles{grid-template-columns:1fr 1fr}.pieza .precio{font-size:50px}.pieza h3{font-size:28px}.pieza .refs{grid-template-columns:1fr}.pieza .contenido{padding:0 18px 20px}.pieza .cabecera{height:230px}.pieza .descuento b{font-size:32px}}
+
 @media print{
   body *{visibility:hidden}
   #imprimible,#imprimible *{visibility:visible}
@@ -491,9 +575,9 @@ html,body{max-width:100%;overflow-x:hidden}
     <div class="muestra" aria-hidden="true">
       <div class="plano" id="muestraPlano"></div>
       <div class="pie">
-        <small>Crédito hipotecario, Murcia</small><small class="dcha">Rentabilidad estimada</small>
-        <b class="num">104.000 €</b><b class="num dcha">21,9 %</b>
-        <small>Nominal de la deuda 186.400 €</small><small class="dcha">TIR anual</small>
+        <small id="muestraQue">Cesión de remate, Torrevieja</small><small class="dcha">Rentabilidad neta anualizada</small>
+        <b class="num" id="muestraPrecio">162.000 €</b><b class="num dcha" id="muestraRent">59,2 %</b>
+        <small id="muestraComp">Comparable en venta 262.000 €</small><small class="dcha" id="muestraMeses">salida en 6 meses</small>
       </div>
     </div>
   </div>
@@ -607,7 +691,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <footer class="pie-web">
   <div class="envoltura">
     <span>© 2026 ONUS Capital Partners. Multi-Family Office.</span>
-    <span>Demostración de diseño. Las operaciones del área de inversores son ficticias. Foto de las torres: Zarateman, Wikimedia Commons, CC0.</span>
+    <span>Demostración de diseño: las operaciones del área de inversores son ficticias. Fotos de ejemplo de Wikimedia Commons: PattayaPatrol (CC BY-SA 4.0), Bruno Acampora (CC BY-SA 3.0), Shixart1985 (CC BY 2.0), Tercprojects y Zarateman (CC0).</span>
   </div>
 </footer>
 
@@ -618,6 +702,10 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 <div class="aviso-toast" id="toast" role="status"></div>
 
+<!-- Para descargar las dos piezas de cada operación en PNG, como las que ONUS manda hoy por WhatsApp. html-to-image deja
+     que el navegador pinte la pieza (SVG con foreignObject), así que el PNG sale idéntico a la pantalla; html2canvas
+     redibujaba el texto y desplazaba las pastillas y los tachados. -->
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js" defer></script>
 <script>
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -676,17 +764,22 @@ function plano(semilla,{w=640,h=400,tema='claro'}={}){
 }
 $('#muestraPlano').innerHTML=plano(7,{w:640,h:380,tema:'oscuro'});
 
-/* ---------- Datos de la demostración (ficticios) ---------- */
+/* ---------- Datos de la demostración (ficticios) ----------
+   Con los campos de las piezas que ONUS manda hoy a sus inversores: precio, honorarios fijos con su IVA, CAPEX,
+   IBI y comunidad pendientes (afección real), el comparable en venta y la salida estimada en meses. */
+const FECHA='28 de octubre de 2026';
+const TIPOS={NPL:'Crédito hipotecario (NPL)',REO:'Inmueble de entidad (REO)',CDR:'Cesión de remate'};
 const OPS=[
- {id:'npl-01',tipo:'NPL',titulo:'Crédito hipotecario sobre vivienda',municipio:'Murcia',provincia:'Murcia',uso:'Residencial',sup:112,anio:2006,ref:'5839102XH6053N0007KT',nominal:186400,intereses:21300,costas:9800,valor:172000,precio:104000,salida:165000,gastos:9500,plazo:20,situacion:'Ejecución hipotecaria en curso. Subasta prevista en el segundo trimestre.',ocupacion:'Ocupada por el deudor',garantia:'Hipoteca de primer rango'},
- {id:'npl-02',tipo:'NPL',titulo:'Crédito sobre local comercial',municipio:'Málaga',provincia:'Málaga',uso:'Comercial',sup:186,anio:1998,ref:'2917604UF7621N0001QW',nominal:298000,intereses:26500,costas:12100,valor:265000,precio:158000,salida:248000,gastos:12000,plazo:22,situacion:'Demanda presentada. Deudor persona jurídica en concurso.',ocupacion:'Sin actividad',garantia:'Hipoteca de primer rango'},
- {id:'npl-03',tipo:'NPL',titulo:'Cartera de tres créditos residenciales',municipio:'Alicante y Elche',provincia:'Alicante',uso:'Residencial',sup:284,anio:2004,ref:'Tres referencias',nominal:512000,intereses:48700,costas:21900,valor:455000,precio:271000,salida:418000,gastos:24000,plazo:26,situacion:'Tres procedimientos en distintas fases; uno con fecha de subasta.',ocupacion:'Dos ocupadas, una libre',garantia:'Hipotecas de primer rango'},
- {id:'npl-04',tipo:'NPL',titulo:'Crédito sobre edificio de oficinas',municipio:'Madrid',provincia:'Madrid',uso:'Oficinas',sup:3420,anio:1991,ref:'6630207VK4763S0016MB',nominal:3850000,intereses:312000,costas:96000,valor:4600000,precio:2540000,salida:3780000,gastos:85000,plazo:30,situacion:'Negociación de dación en pago abierta con el deudor.',ocupacion:'Ocupación del 62 %',garantia:'Hipoteca de primer rango'},
- {id:'reo-01',tipo:'REO',titulo:'Vivienda con terraza',municipio:'Alicante',provincia:'Alicante',uso:'Residencial',sup:96,anio:2009,ref:'9182706VK4798S0001RA',valor:238000,precio:176000,salida:229000,gastos:14000,plazo:9,situacion:'Inmueble adjudicado a la entidad. Escritura disponible.',ocupacion:'Libre',garantia:'Pleno dominio'},
- {id:'reo-02',tipo:'REO',titulo:'Nave industrial con patio',municipio:'Molina de Segura',provincia:'Murcia',uso:'Industrial',sup:1850,anio:2002,ref:'4401803XH0141S0004LJ',valor:690000,precio:512000,salida:655000,gastos:18000,plazo:12,situacion:'Inmueble de entidad financiera. Licencia de actividad vigente.',ocupacion:'Libre',garantia:'Pleno dominio'},
- {id:'reo-03',tipo:'REO',titulo:'Suelo urbano finalista',municipio:'Marbella',provincia:'Málaga',uso:'Suelo',sup:2400,anio:null,ref:'7712305XH6371S0001ZU',valor:1480000,precio:1090000,salida:1390000,gastos:25000,plazo:14,situacion:'Suelo con ordenación pormenorizada aprobada.',ocupacion:'Libre',garantia:'Pleno dominio'},
- {id:'cdr-01',tipo:'CDR',titulo:'Cesión de remate de vivienda',municipio:'Madrid',provincia:'Madrid',uso:'Residencial',sup:128,anio:1975,ref:'1129901UF3412S0001HG',valor:412000,precio:298000,salida:395000,gastos:16000,plazo:8,situacion:'Remate aprobado en subasta judicial. Pendiente de cesión a tercero.',ocupacion:'Ocupada sin título',garantia:'Adjudicación judicial'},
- {id:'cdr-02',tipo:'CDR',titulo:'Cesión de remate de local',municipio:'Valencia',provincia:'Valencia',uso:'Comercial',sup:142,anio:1988,ref:'3348105YJ2734N0001TS',valor:205000,precio:139000,salida:192000,gastos:9000,plazo:7,situacion:'Remate aprobado. Plazo para la cesión abierto.',ocupacion:'Libre',garantia:'Adjudicación judicial'}
+ {id:'cdr-01',tipo:'CDR',titulo:'Vivienda en primera línea con piscina',titular:'Primera línea con piscina en Torrevieja',corto:'Torrevieja',municipio:'Torrevieja',provincia:'Alicante',uso:'Residencial',sup:92,anio:2004,refs:['4318206YH0141N0021FQ','4318206YH0141N0058KW'],rasgos:['2 hab.','2.ª planta','Ascensor'],extras:'Piscina comunitaria, jardines y acceso directo al paseo marítimo',pastillas:['Libre de ocupantes','Garaje y trastero','Primera línea'],cerca:'A cinco minutos a pie de la playa.',foto:'img/op-piscina-mar.jpg',precio:162000,hon:12000,capex:6000,ibi:980,comu:1600,comparable:{texto:'Vivienda similar en el mismo edificio, en venta',corto:'vivienda similar en venta',precio:262000},salida:252000,meses:6,situacion:'Remate aprobado en subasta judicial. Pendiente de cesión a tercero.',ocupacion:'Libre de ocupantes',garantia:'Adjudicación judicial'},
+ {id:'reo-04',tipo:'REO',titulo:'Ático con vistas al mar',titular:'Ático con vistas al mar en Estepona',corto:'Estepona',municipio:'Estepona',provincia:'Málaga',uso:'Residencial',sup:118,anio:2007,refs:['2209415UF0321S0042PL'],rasgos:['3 hab.','Ático','Terraza de 40 m²'],extras:'Urbanización cerrada con piscina infinita y conserjería',pastillas:['Libre de ocupantes','Plaza de garaje','Vistas al mar'],cerca:'En segunda línea, sobre el puerto deportivo.',foto:'img/op-piscina-infinita.jpg',precio:318000,hon:12000,capex:9000,ibi:1150,comu:2400,comparable:{texto:'Ático en la misma urbanización, en venta',corto:'ático similar en venta',precio:459000},salida:438000,meses:9,situacion:'Inmueble adjudicado a la entidad. Escritura e informe de cargas disponibles.',ocupacion:'Libre de ocupantes',garantia:'Pleno dominio'},
+ {id:'npl-01',tipo:'NPL',titulo:'Crédito hipotecario sobre vivienda',titular:'Crédito sobre vivienda en Murcia',corto:'Murcia',municipio:'Murcia',provincia:'Murcia',uso:'Residencial',sup:112,anio:2006,refs:['5839102XH6053N0007KT'],rasgos:['3 hab.','1.ª planta'],extras:'Garantía hipotecaria de primer rango sobre la vivienda',pastillas:['Primer rango','Subasta prevista'],cerca:'Barrio consolidado, junto a servicios y transporte.',foto:'img/op-salon-luz.jpg',nominal:186400,intereses:21300,costas:9800,precio:104000,hon:6000,capex:7500,ibi:0,comu:0,comparable:{texto:'Valor de mercado del colateral',corto:'valor del colateral',precio:172000},salida:165000,meses:20,situacion:'Ejecución hipotecaria en curso. Subasta prevista en el segundo trimestre.',ocupacion:'Ocupada por el deudor',garantia:'Hipoteca de primer rango'},
+ {id:'reo-01',tipo:'REO',titulo:'Vivienda con terraza',titular:'Vivienda con terraza en Alicante',corto:'Alicante',municipio:'Alicante',provincia:'Alicante',uso:'Residencial',sup:96,anio:2009,refs:['9182706VK4798S0001RA'],rasgos:['3 hab.','4.ª planta','Ascensor'],extras:'Terraza de 18 m² y cocina reformada',pastillas:['Libre de ocupantes','Terraza'],cerca:'A diez minutos del centro.',foto:'img/op-salon.jpg',precio:176000,hon:9000,capex:12000,ibi:620,comu:900,comparable:{texto:'Piso similar en la misma calle, en venta',corto:'piso similar en venta',precio:268000},salida:256000,meses:8,situacion:'Inmueble adjudicado a la entidad. Escritura disponible.',ocupacion:'Libre de ocupantes',garantia:'Pleno dominio'},
+ {id:'cdr-02',tipo:'CDR',titulo:'Cesión de remate de local',titular:'Local comercial a pie de calle en Valencia',corto:'Valencia',municipio:'Valencia',provincia:'Valencia',uso:'Comercial',sup:142,anio:1988,refs:['3348105YJ2734N0001TS'],rasgos:['Planta baja','Escaparate de 9 m'],extras:'Zona comercial con alta afluencia peatonal',pastillas:['Libre de ocupantes','A pie de calle'],cerca:'En un eje comercial consolidado.',precio:139000,hon:7000,capex:7000,ibi:760,comu:1100,comparable:{texto:'Local similar en la misma calle, en venta',corto:'local similar en venta',precio:215000},salida:205000,meses:7,situacion:'Remate aprobado. Plazo para la cesión abierto.',ocupacion:'Libre de ocupantes',garantia:'Adjudicación judicial'},
+ {id:'npl-02',tipo:'NPL',titulo:'Crédito sobre local comercial',titular:'Crédito sobre local comercial en Málaga',corto:'Málaga',municipio:'Málaga',provincia:'Málaga',uso:'Comercial',sup:186,anio:1998,refs:['2917604UF7621N0001QW'],rasgos:['Planta baja','Esquina'],extras:'Deudor persona jurídica en concurso',pastillas:['Primer rango','Esquina'],cerca:'En zona de oficinas y comercio.',nominal:298000,intereses:26500,costas:12100,precio:158000,hon:8000,capex:9500,ibi:0,comu:0,comparable:{texto:'Valor de mercado del colateral',corto:'valor del colateral',precio:265000},salida:248000,meses:22,situacion:'Demanda presentada. Deudor persona jurídica en concurso.',ocupacion:'Sin actividad',garantia:'Hipoteca de primer rango'},
+ {id:'npl-03',tipo:'NPL',titulo:'Cartera de tres créditos residenciales',titular:'Cartera de tres créditos residenciales',corto:'Alicante y Elche',municipio:'Alicante y Elche',provincia:'Alicante',uso:'Residencial',sup:284,anio:2004,refs:['0329801YH1502N0012PE','0329801YH1502N0019RT','5512608YH0251S0003WM'],rasgos:['3 viviendas'],extras:'Tres procedimientos en distintas fases',pastillas:['Cartera','Primer rango'],cerca:'Dos en Alicante y una en Elche.',nominal:512000,intereses:48700,costas:21900,precio:271000,hon:14000,capex:18000,ibi:0,comu:0,comparable:{texto:'Valor de mercado de los colaterales',corto:'valor de los colaterales',precio:455000},salida:418000,meses:26,situacion:'Tres procedimientos en distintas fases; uno con fecha de subasta.',ocupacion:'Dos ocupadas, una libre',garantia:'Hipotecas de primer rango'},
+ {id:'reo-02',tipo:'REO',titulo:'Nave industrial con patio',titular:'Nave industrial con patio en Molina de Segura',corto:'Molina de Segura',municipio:'Molina de Segura',provincia:'Murcia',uso:'Industrial',sup:1850,anio:2002,refs:['4401803XH0141S0004LJ'],rasgos:['Altura libre de 9 m','Muelle de carga'],extras:'Licencia de actividad vigente',pastillas:['Libre de ocupantes','Muelle de carga'],cerca:'En polígono con acceso directo a la autovía.',precio:512000,hon:15000,capex:15000,ibi:2100,comu:0,comparable:{texto:'Nave similar en el mismo polígono, en venta',corto:'nave similar en venta',precio:720000},salida:690000,meses:12,situacion:'Inmueble de entidad financiera. Licencia de actividad vigente.',ocupacion:'Libre de ocupantes',garantia:'Pleno dominio'},
+ {id:'reo-03',tipo:'REO',titulo:'Suelo urbano finalista',titular:'Suelo urbano finalista en Marbella',corto:'Marbella',municipio:'Marbella',provincia:'Málaga',uso:'Suelo',sup:2400,anio:null,refs:['7712305XH6371S0001ZU'],rasgos:['Residencial plurifamiliar','Edificabilidad 1,2'],extras:'Ordenación pormenorizada aprobada',pastillas:['Finalista','Licencia viable'],cerca:'En un sector en desarrollo junto a la costa.',precio:1090000,hon:30000,capex:20000,ibi:3800,comu:0,comparable:{texto:'Suelos comparables en el municipio',corto:'suelos comparables',precio:1480000},salida:1420000,meses:14,situacion:'Suelo con ordenación pormenorizada aprobada.',ocupacion:'Libre',garantia:'Pleno dominio'},
+ {id:'npl-04',tipo:'NPL',titulo:'Crédito sobre edificio de oficinas',titular:'Crédito sobre edificio de oficinas en Madrid',corto:'Madrid',municipio:'Madrid',provincia:'Madrid',uso:'Oficinas',sup:3420,anio:1991,refs:['6630207VK4763S0016MB'],rasgos:['Edificio completo','62 % ocupado'],extras:'Dación en pago en negociación',pastillas:['Primer rango','Gran volumen'],cerca:'En distrito de negocios consolidado.',nominal:3850000,intereses:312000,costas:96000,precio:2540000,hon:90000,capex:60000,ibi:0,comu:0,comparable:{texto:'Valor de mercado del colateral',corto:'valor del colateral',precio:4600000},salida:3780000,meses:30,situacion:'Negociación de dación en pago abierta con el deudor.',ocupacion:'Ocupación del 62 %',garantia:'Hipoteca de primer rango'}
 ];
 const DEV=[
  {id:'d1',nombre:'Residencial BBII',tipo:'Promoción de obra nueva',unidades:'18 viviendas',foto:'img/proy-bbii.jpg',objetivo:2400000,comprometido:1560000,fijo:.10,benef:.38,beneficio:1650000,plazo:24,ticket:50000,fase:2},
@@ -708,15 +801,25 @@ const CARTERA=[
 ];
 
 /* ---------- Cálculos de una operación ---------- */
+// El modelo del «Cuadro de inversión» de ONUS: precio + ITP de la comunidad (AJD en la cesión de un crédito) + CAPEX +
+// honorarios + su IVA + IBI y comunidad pendientes = coste total; la anualizada es compuesta. Cuadra al céntimo con el
+// cuadro que ONUS manda hoy a sus inversores.
+const CCAA={Murcia:['Región de Murcia',.08],Alicante:['Comunitat Valenciana',.09],Valencia:['Comunitat Valenciana',.09],Málaga:['Andalucía',.07],Madrid:['Comunidad de Madrid',.06]};
 function calc(op,esc='base'){
-  const k={conservador:{s:.92,p:1.3},base:{s:1,p:1},optimista:{s:1.05,p:.85}}[esc];
-  const imp=op.tipo==='NPL'?op.precio*.015:op.precio*.08,not=op.precio*.006+900,hon=op.precio*.02;
-  const coste=op.precio+imp+not+op.gastos+hon,salida=op.salida*k.s,plazo=op.plazo*k.p;
-  const margen=salida-coste,roi=margen/coste,tir=Math.pow(1+roi,12/plazo)-1;
-  const deuda=op.tipo==='NPL'?op.nominal+op.intereses+op.costas:null;
-  const descuento=op.tipo==='NPL'?1-op.precio/op.nominal:1-op.precio/op.valor;
-  return{imp,not,hon,coste,salida,margen,roi,tir,deuda,descuento,plazo};
+  const k={conservador:{s:.95,m:1.4},base:{s:1,m:1},optimista:{s:1.03,m:.8}}[esc];
+  const [ccaa,itp]=CCAA[op.provincia]||['',.08],tasa=op.tipo==='NPL'?.015:itp;
+  const imp=op.precio*tasa,iva=op.hon*.21;
+  const coste=op.precio+imp+op.capex+op.hon+iva+op.ibi+op.comu;
+  const salida=op.salida*k.s,meses=op.meses*k.m;
+  const beneficio=salida-coste,rent=beneficio/coste,anual=Math.pow(1+rent,12/meses)-1;
+  const descuento=op.tipo==='NPL'?1-op.precio/op.nominal:1-op.precio/op.comparable.precio;
+  return{ccaa,tasa,imp,iva,coste,salida,meses,beneficio,rent,anual,descuento,ahorro:op.comparable.precio-op.precio,eurm2:op.precio/op.sup,deuda:op.tipo==='NPL'?op.nominal+op.intereses+op.costas:null};
 }
+// la tarjeta de muestra de la web pública, con las cifras de la primera operación (que no se desincronicen)
+(()=>{const o=OPS[0],c=calc(o);$('#muestraQue').textContent=`${TIPOS[o.tipo]}, ${o.municipio}`;$('#muestraPrecio').textContent=eur(o.precio);
+  $('#muestraRent').textContent=pct(c.anual);$('#muestraComp').textContent=`Comparable en venta ${eur(o.comparable.precio)}`;$('#muestraMeses').textContent=`salida en ${o.meses} meses`})();
+const eur2=n=>new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:'always'}).format(n)+' €';
+const pctEnt=n=>Math.round(n*100)+' %';
 const semilla=id=>[...id].reduce((a,c)=>a*31+c.charCodeAt(0)|0,7);
 
 /* ---------- Estado del área ---------- */
@@ -766,13 +869,13 @@ function pintarAcceso(){
 /* Resumen */
 function vResumen(p){
   const comprometido=est.mias.reduce((a,m)=>a+m.importe,0);
-  const mejores=[...OPS].sort((a,b)=>calc(b).tir-calc(a).tir).slice(0,3);
+  const mejores=[...OPS].sort((a,b)=>calc(b).anual-calc(a).anual).slice(0,3);
   p.innerHTML=`<h1>Buenos días, Alejandro</h1><p class="bajada">Estas son las oportunidades abiertas para tu perfil y el estado de tus participaciones.</p>
   <div class="kpis"><div class="kpi"><small>Oportunidades abiertas</small><b class="num">${OPS.length+DEV.filter(d=>d.comprometido<d.objetivo).length+CORP.length}</b><span>${est.nuevas.size?est.nuevas.size+' nuevas hoy':'Actualizado hoy'}</span></div>
   <div class="kpi"><small>Capital comprometido</small><b class="num">${eur(comprometido)}</b><span>${est.mias.length} participaciones</span></div>
-  <div class="kpi"><small>TIR media de las off-market</small><b class="num">${pct(OPS.reduce((a,o)=>a+calc(o).tir,0)/OPS.length)}</b><span>Escenario base</span></div>
+  <div class="kpi"><small>Rentabilidad neta media</small><b class="num">${pct(OPS.reduce((a,o)=>a+calc(o).rent,0)/OPS.length)}</b><span>Off-market, sobre coste total</span></div>
   <div class="kpi"><small>Desarrollo en captación</small><b class="num">${meur(DEV.reduce((a,d)=>a+Math.max(0,d.objetivo-d.comprometido),0))}</b><span>Pendiente de cubrir</span></div></div>
-  <div class="dos"><div class="bloque"><h2>Mejor rentabilidad estimada</h2>${mejores.map(o=>{const c=calc(o);return`<button class="op" style="width:100%;margin-bottom:12px;flex-direction:row;align-items:stretch" data-op="${o.id}"><div class="plano" style="width:38%;flex:none">${plano(semilla(o.id),{w:300,h:200})}</div><div class="cuerpo"><div class="linea1"><span class="etiqueta ${o.tipo}">${o.tipo}</span></div><h3>${o.titulo}</h3><span class="donde">${o.municipio}</span><span class="num" style="margin-top:auto;font-size:15px">TIR ${pct(c.tir)}, por ${eur(o.precio)}</span></div></button>`}).join('')}</div>
+  <div class="dos"><div class="bloque"><h2>Mejor rentabilidad estimada</h2>${mejores.map(o=>{const c=calc(o);return`<button class="op" style="width:100%;margin-bottom:12px;flex-direction:row;align-items:stretch" data-op="${o.id}"><div class="foto-op" style="width:38%;flex:none;aspect-ratio:auto">${visual(o,300,200)}</div><div class="cuerpo"><div class="linea1"><span class="etiqueta ${o.tipo}">${o.tipo}</span></div><h3>${o.titular}</h3><span class="donde">${o.municipio}</span><span class="num" style="margin-top:auto;font-size:15px">${pct(c.anual)} anualizada, por ${eur(o.precio)}</span></div></button>`}).join('')}</div>
   <div class="bloque"><h2>Desarrollo inmobiliario en captación</h2>${DEV.filter(d=>d.comprometido<d.objetivo).map(d=>`<div style="padding:14px 0;border-bottom:1px solid var(--filo);cursor:pointer" data-dev="${d.id}"><div style="display:flex;justify-content:space-between;gap:12px"><b>${d.nombre}</b><span class="num" style="color:var(--gris);font-size:14px">${pct(d.comprometido/d.objetivo,0)} cubierto</span></div><div class="barra" style="margin-top:10px"><i style="width:${d.comprometido/d.objetivo*100}%"></i></div></div>`).join('')}
   <h2 style="margin-top:28px">Financiación corporativa</h2>${CORP.map(c=>`<div style="padding:12px 0;border-bottom:1px solid var(--filo);display:flex;justify-content:space-between;gap:12px;cursor:pointer" data-corp="${c.id}"><span>${c.nombre}<br><small style="color:var(--gris)">${c.zona}</small></span><b class="num">${pct(c.cupon,2)}</b></div>`).join('')}</div></div>`;
   enlazar(p);
@@ -787,54 +890,114 @@ function enlazar(p){
 function vOff(p){
   const cuenta=t=>t==='Todas'?OPS.length:OPS.filter(o=>o.tipo===t).length;
   let lista=OPS.filter(o=>est.filtro==='Todas'||o.tipo===est.filtro);
-  const ord={tir:(a,b)=>calc(b).tir-calc(a).tir,desc:(a,b)=>calc(b).descuento-calc(a).descuento,precio:(a,b)=>a.precio-b.precio};
+  const ord={tir:(a,b)=>calc(b).anual-calc(a).anual,desc:(a,b)=>calc(b).descuento-calc(a).descuento,precio:(a,b)=>a.precio-b.precio};
   lista=[...lista].sort(ord[est.orden]);
   p.innerHTML=`<h1>Operaciones off-market</h1><p class="bajada">Activos procedentes de fondos y entidades, localizados en el Catastro y valorados por nuestro equipo. Cada operación tiene su ficha del activo y su ficha de costes y rentabilidad.</p>
   <div class="chips" role="group" aria-label="Tipo de operación">${['Todas','NPL','REO','CDR'].map(t=>`<button class="chip" data-f="${t}" aria-pressed="${est.filtro===t}">${t==='CDR'?'Cesión de remate':t}<span class="n">${cuenta(t)}</span></button>`).join('')}
-  <label class="orden">Ordenar por<select id="orden"><option value="tir" ${est.orden==='tir'?'selected':''}>Rentabilidad estimada</option><option value="desc" ${est.orden==='desc'?'selected':''}>Descuento</option><option value="precio" ${est.orden==='precio'?'selected':''}>Precio</option></select></label></div>
-  <div class="mercado">${lista.map(o=>{const c=calc(o);return`<button class="op" data-op="${o.id}"><div class="plano">${plano(semilla(o.id),{w:480,h:280})}</div><div class="cuerpo"><div class="linea1"><span class="etiqueta ${o.tipo}">${o.tipo}</span>${est.nuevas.has(o.id)?'<span class="etiqueta nueva">Nueva</span>':''}</div><h3>${o.titulo}</h3><span class="donde">${o.municipio}, ${o.sup.toLocaleString('es-ES')} m²</span>
-  <div class="cifras-op"><div><small>${o.tipo==='NPL'?'Nominal de la deuda':'Valor de referencia'}</small><b>${eur(o.tipo==='NPL'?o.nominal:o.valor)}</b></div><div><small>Precio</small><b>${eur(o.precio)}</b></div><div><small>Descuento</small><b>${pct(c.descuento)}</b></div><div><small>TIR estimada</small><b class="rent">${pct(c.tir)}</b></div></div></div></button>`}).join('')}</div>`;
+  <label class="orden">Ordenar por<select id="orden"><option value="tir" ${est.orden==='tir'?'selected':''}>Rentabilidad anualizada</option><option value="desc" ${est.orden==='desc'?'selected':''}>Descuento</option><option value="precio" ${est.orden==='precio'?'selected':''}>Precio</option></select></label></div>
+  <div class="mercado">${lista.map(o=>{const c=calc(o);return`<button class="op" data-op="${o.id}"><div class="foto-op">${visual(o,480,280)}<span class="desc-op num">−${pctEnt(c.descuento)}<small>${o.tipo==='NPL'?'sobre el nominal':'vs. comparable'}</small></span></div><div class="cuerpo"><div class="linea1"><span class="etiqueta ${o.tipo}">${o.tipo}</span>${est.nuevas.has(o.id)?'<span class="etiqueta nueva">Nueva</span>':''}</div><h3>${o.titular}</h3><span class="donde">${o.municipio}, ${o.sup.toLocaleString('es-ES')} m²</span>
+  <div class="cifras-op"><div><small>${o.tipo==='NPL'?'Precio del crédito':o.tipo==='CDR'?'Precio de cesión':'Precio de compra'}</small><b>${eur(o.precio)}</b></div><div><small>${o.tipo==='NPL'?'Nominal de la deuda':'Comparable en venta'}</small><b>${eur(o.tipo==='NPL'?o.nominal:o.comparable.precio)}</b></div><div><small>Rentabilidad neta</small><b>${pct(c.rent)}</b></div><div><small>Anualizada</small><b class="rent">${pct(c.anual)}</b></div></div></div></button>`}).join('')}</div>`;
   p.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{est.filtro=b.dataset.f;vOff(p)}));
   $('#orden').addEventListener('change',e=>{est.orden=e.target.value;vOff(p)});
   enlazar(p);
 }
 
-/* Ficha de una operación: las dos fichas */
+/* La imagen de una operación: su foto si la hay (vivienda), o el plano catastral en petróleo y latón */
+function visual(o,w,h){return o.foto?`<img src="${o.foto.replace('.jpg','-800.jpg')}" alt="" loading="lazy">`:plano(semilla(o.id),{w,h,tema:'oscuro'})}
+
+/* Las dos piezas de una operación, con la estructura de las que ONUS manda hoy a sus inversores */
+function pOportunidad(o,c){
+  const refs=o.refs,lugar=o.municipio+(CCAA[o.provincia]&&o.provincia!==o.municipio&&!o.municipio.includes(' y ')?` (${o.provincia})`:'');
+  const etq=o.tipo==='NPL'?'Precio del crédito':o.tipo==='CDR'?'Precio de cesión':'Precio de compra';
+  return `<article class="pieza" id="pieza-oportunidad">
+   <div class="cabecera">${o.foto?`<img src="${o.foto}" alt="">`:plano(semilla(o.id),{w:640,h:300,tema:'oscuro'})}<span class="sello">Oportunidad ONUS</span><span class="fecha">${FECHA}</span>
+    <div class="descuento"><b class="num">−${pctEnt(c.descuento)}</b><span>${o.tipo==='NPL'?'sobre el nominal de la deuda':'vs. '+o.comparable.corto}</span></div></div>
+   <div class="contenido">
+    <h3>${o.titular}</h3>
+    <p class="lugar">${lugar}</p>
+    <p class="rasgos">${[o.sup.toLocaleString('es-ES')+' m²',...o.rasgos,TIPOS[o.tipo]].join('  ·  ')}</p>
+    <p class="extras">${o.extras}</p>
+    <div class="pastillas">${o.pastillas.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="regla"></div>
+    <p class="etq">${etq}</p>
+    <p class="precio num">${eur(o.precio)}</p>
+    <p class="honor num">Honorarios: ${eur(o.hon)} + IVA  ·  ${eur(c.eurm2)}/m²</p>
+    ${o.tipo==='NPL'
+      ?`<p class="comparable">Nominal de la deuda <span class="tachado num">${eur(o.nominal)}</span></p><span class="ahorro num">Por debajo del nominal: ${eur(o.nominal-o.precio)}</span>`
+      :`<p class="comparable">${o.comparable.texto} <span class="tachado num">${eur(o.comparable.precio)}</span></p><span class="ahorro num">Ahorro de ${eur(c.ahorro)}</span>`}
+    <div class="refs"><div><b>${refs.length>1?'Refs. catastrales':'Ref. catastral'}</b>${refs.map(r=>`<span class="ref">${r}</span>`).join('')}<p>${o.cerca}</p></div>${plano(semilla(o.id),{w:300,h:190})}</div>
+    <div class="firma-pieza"><img src="img/logotipo.png" alt="ONUS"><span>Capital Partners, Multi-Family Office</span></div>
+    <div class="pie-pieza"><span><b>ONUS</b> Capital Partners</span><span>Información confidencial</span></div>
+   </div></article>`;
+}
+function pCuadro(o,c){
+  const refs=o.refs,npl=o.tipo==='NPL';
+  const filas=[
+    [npl?'Precio del crédito':o.tipo==='CDR'?'Precio de cesión de remate':'Precio de compra','Precio ofertado al fondo',o.precio],
+    [npl?'AJD (1,5 %)':`ITP (${pctEnt(c.tasa)}, ${c.ccaa})`,npl?'Sobre la cesión del crédito':'Sobre el precio',c.imp],
+    [npl?'Gastos del procedimiento':'CAPEX',npl?'Abogado, procurador y costas propias':'Puesta a punto para la venta',o.capex],
+    ['Honorarios','Intermediación',o.hon],
+    ['IVA de honorarios (21 %)','Deducible si compra una sociedad',c.iva]];
+  if(o.ibi)filas.push(['IBI pendiente','Afección real: no se cancela en subasta',o.ibi]);
+  if(o.comu)filas.push(['Comunidad pendiente','Afección real: no se cancela en subasta',o.comu]);
+  const nota=npl
+    ?`Compra del crédito a precio ofertado al fondo; prevalece el nominal de la deuda (${eur(o.nominal)}). Salida estimada por la adjudicación o la venta del colateral en ${Math.round(c.meses)} meses. Antes de impuestos sobre la ganancia. Estimación orientativa, no constituye asesoramiento fiscal.`
+    :`${o.tipo==='CDR'?'Cesión de remate a precio ofertado al fondo; la adjudicación cancela la carga ejecutada y las posteriores. ':''}${o.ibi||o.comu?'IBI y comunidad pendientes subsisten por afección real y se incluyen como coste. ':''}ITP al ${pctEnt(c.tasa)} sobre el precio. IVA de honorarios incluido como coste; un comprador sociedad podría deducirlo. Precio de salida de ${eur(c.salida)}, por debajo del comparable (${eur(o.comparable.precio)}). Rentabilidad anualizada con salida estimada en ${Math.round(c.meses)} meses. Antes de impuestos sobre la ganancia. Estimación orientativa, no constituye asesoramiento fiscal.`;
+  return `<article class="pieza cuadro" id="pieza-cuadro">
+   <div class="cabecera">${o.foto?`<img src="${o.foto}" alt="">`:plano(semilla(o.id)+3,{w:640,h:170,tema:'oscuro'})}<span class="sello">Cuadro de inversión</span><span class="fecha">${FECHA}</span></div>
+   <div class="contenido">
+    <h3>Costes y rentabilidad, ${o.corto}</h3>
+    <p class="lugar">${[o.municipio,o.sup.toLocaleString('es-ES')+' m²',...o.rasgos.slice(0,2)].join('  ·  ')}</p>
+    <p class="extras">${TIPOS[o.tipo]}, ${o.ocupacion.toLowerCase()}. ${refs.length>1?'Refs. catastrales':'Ref. catastral'} ${refs.join(' y ')}</p>
+    <div class="regla"></div>
+    <div class="tiles"><div class="tile"><b>${eur(c.coste)}</b><span>Inversión total</span><small>con impuestos y gastos</small></div><div class="tile"><b>${eur(c.beneficio)}</b><span>Beneficio neto</span><small>sobre salida de ${eur(c.salida)}</small></div><div class="tile fuerte"><b>${pct(c.rent)}</b><span>Rentabilidad neta</span><small>sobre coste total</small></div><div class="tile"><b>${pct(c.anual)}</b><span>Anualizada</span><small>salida en ${Math.round(c.meses)} meses</small></div></div>
+    <h4>Coste total de adquisición<small>Acquisition cost</small></h4>
+    <table class="tabla-pieza"><thead><tr><th>Concepto</th><th class="r">Importe</th><th class="r">%</th></tr></thead><tbody>
+     ${filas.map(([t,sub,v])=>`<tr><td><b>${t}</b><small>${sub}</small></td><td class="r">${eur2(v)}</td><td class="r">${pct(v/c.coste)}</td></tr>`).join('')}
+     <tr class="total"><td>Coste total de adquisición</td><td class="r">${eur2(c.coste)}</td><td class="r">100 %</td></tr></tbody></table>
+    <h4>Rentabilidad sobre precio de salida<small>Exit returns</small></h4>
+    <table class="tabla-pieza"><thead><tr><th>Concepto</th><th class="r">Importe</th></tr></thead><tbody>
+     <tr><td><b>Precio de salida</b><small>${o.comparable.texto}: ${eur(o.comparable.precio)}</small></td><td class="r">${eur2(c.salida)}</td></tr>
+     <tr><td><b>Coste total de adquisición</b><small>Precio, impuestos, ${npl?'procedimiento':'CAPEX'}, honorarios e IVA${o.ibi||o.comu?', IBI y comunidad':''}</small></td><td class="r">−${eur2(c.coste)}</td></tr>
+     <tr class="fuerte"><td><b>Beneficio neto antes de impuestos</b></td><td class="r"><b>${eur2(c.beneficio)}</b></td></tr>
+     <tr class="fuerte"><td><b>Rentabilidad neta sobre coste total</b><small>Antes de IRPF o IS</small></td><td class="r"><b>${pct(c.rent)}</b></td></tr>
+     <tr class="fuerte"><td><b>Rentabilidad neta anualizada</b><small>Salida estimada en ${Math.round(c.meses)} meses</small></td><td class="r"><b>${pct(c.anual)}</b></td></tr></tbody></table>
+    <p class="letra">${nota}</p>
+    <div class="firma-pieza"><img src="img/logotipo.png" alt="ONUS"><span>Capital Partners, Multi-Family Office</span></div>
+    <div class="pie-pieza"><span><b>ONUS</b> Capital Partners</span><span>Información confidencial</span></div>
+   </div></article>`;
+}
+/* Descargar una pieza en PNG, como las que ONUS manda hoy por WhatsApp */
+async function descargar(id,nombre,boton){
+  if(!window.htmlToImage){toast('La descarga aún se está preparando. Inténtalo en un momento.');return}
+  boton.disabled=true;const t=boton.textContent;boton.textContent='Preparando la imagen…';
+  try{const url=await htmlToImage.toPng(document.getElementById(id),{pixelRatio:2,backgroundColor:'#F3F4F2',cacheBust:false});
+    const a=document.createElement('a');a.download=nombre;a.href=url;document.body.appendChild(a);a.click();a.remove();toast('Imagen descargada, lista para enviar al inversor.')}
+  catch(e){toast('No se ha podido generar la imagen. Prueba con «Imprimir en PDF».')}
+  finally{boton.disabled=false;boton.textContent=t}
+}
+
+/* Ficha de una operación: las dos piezas, los escenarios y la participación */
 function vFicha(p){
-  const o=OPS.find(x=>x.id===est.sel),c=calc(o,est.esc),s=semilla(o.id);
-  const precioRef=o.tipo==='NPL'
-    ?`<table class="tabla"><caption>Precio de referencia: prevalece el nominal de la deuda</caption><tr><th>Nominal de la deuda</th><td>${eur(o.nominal)}</td></tr><tr><th>Intereses devengados</th><td>${eur(o.intereses)}</td></tr><tr><th>Costas y gastos</th><td>${eur(o.costas)}</td></tr><tr class="total"><th>Deuda total reclamable</th><td>${eur(c.deuda)}</td></tr><tr><th>Valor de mercado del colateral</th><td>${eur(o.valor)}</td></tr><tr class="destacada"><th>Precio de la operación</th><td>${eur(o.precio)}</td></tr></table>`
-    :`<table class="tabla"><caption>Precio de referencia</caption><tr><th>${o.tipo==='CDR'?'Valor de tasación':'Valor de mercado'}</th><td>${eur(o.valor)}</td></tr><tr class="destacada"><th>${o.tipo==='CDR'?'Precio de la cesión de remate':'Precio de compra'}</th><td>${eur(o.precio)}</td></tr></table>`;
-  // cascada: precio, impuestos, notaría, gestión, honorarios, coste total, salida
-  const partes=[['Precio',o.precio],['Impuestos',c.imp],['Notaría y registro',c.not],['Gestión y procedimiento',o.gastos],['Honorarios ONUS',c.hon]];
-  const W=560,H=210,base=170,max=Math.max(c.salida,c.coste)*1.08,esc=v=>v/max*150;let x=10,acum=0,barras='';
-  partes.forEach(([t,v],i)=>{const h=esc(v),y=base-esc(acum)-h;barras+=`<rect x="${x}" y="${y.toFixed(1)}" width="58" height="${Math.max(1,h).toFixed(1)}" fill="${i?'#B7C6C2':'#0F4C4A'}"/><text x="${x+29}" y="${base+16}" text-anchor="middle" font-size="10" fill="#66726F">${t.split(' ')[0]}</text>`;acum+=v;x+=72});
-  barras+=`<rect x="${x}" y="${(base-esc(c.coste)).toFixed(1)}" width="58" height="${esc(c.coste).toFixed(1)}" fill="#121A19"/><text x="${x+29}" y="${base+16}" text-anchor="middle" font-size="10" fill="#121A19">Coste</text>`;x+=72;
-  barras+=`<rect x="${x}" y="${(base-esc(c.salida)).toFixed(1)}" width="58" height="${esc(c.salida).toFixed(1)}" fill="#B79358"/><text x="${x+29}" y="${base+16}" text-anchor="middle" font-size="10" fill="#7E6232">Salida</text>`;
-  barras+=`<line x1="0" x2="${W}" y1="${base}" y2="${base}" stroke="#DCE1DF"/>`;
+  const o=OPS.find(x=>x.id===est.sel),c=calc(o,est.esc);
   const dentro=est.mias.find(m=>m.id===o.id);
   p.innerHTML=`<button class="migas no-imprimir" id="volver">Volver a las operaciones</button>
-  <div class="ficha-cab"><div><div class="linea1" style="display:flex;gap:8px;margin-bottom:10px"><span class="etiqueta ${o.tipo}">${o.tipo==='CDR'?'Cesión de remate':o.tipo}</span></div><h1>${o.titulo}</h1><span class="ref">${o.municipio}${o.provincia!==o.municipio&&!o.municipio.includes(' y ')?' ('+o.provincia+')':''}. ${o.ref.length===20?'Referencia catastral '+o.ref:o.ref.charAt(0).toUpperCase()+o.ref.slice(1)+' catastrales'}</span></div>
-  <button class="boton boton-secundario boton-pequeno no-imprimir" id="imprimir">Descargar las fichas en PDF</button></div>
-  <div class="fichas" id="imprimible">
-   <article class="ficha"><div class="encab"><b>Ficha del activo</b><small>Catastro y vista aérea</small></div>
-    <div class="vistas"><figure>${plano(s,{w:420,h:300})}<figcaption>Plano catastral</figcaption></figure><figure>${plano(s,{w:420,h:300,tema:'aereo'})}<figcaption>Vista aérea (Google Maps en la plataforma)</figcaption></figure></div>
-    <div class="situacion"><b>Situación:</b> ${o.situacion}<br><b>Ocupación:</b> ${o.ocupacion}. <b>Garantía:</b> ${o.garantia}.</div>
-    <table class="tabla"><caption>Datos catastrales</caption><tr><th>Uso principal</th><td>${o.uso}</td></tr><tr><th>Superficie</th><td>${o.sup.toLocaleString('es-ES')} m²</td></tr><tr><th>Año de construcción</th><td>${o.anio??'Sin edificar'}</td></tr><tr><th>Municipio</th><td>${o.municipio}</td></tr></table>
-    ${precioRef}</article>
-   <article class="ficha"><div class="encab"><b>Costes totales y rentabilidad</b><small>Escenario ${est.esc}</small></div>
-    <div class="cascada">${`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Del precio al coste total y la salida">${barras}</svg>`}</div>
-    <div class="escenarios no-imprimir" role="group" aria-label="Escenario">${['conservador','base','optimista'].map(e=>`<button data-esc="${e}" aria-pressed="${est.esc===e}">${e[0].toUpperCase()+e.slice(1)}</button>`).join('')}</div>
-    <table class="tabla"><tr><th>Precio</th><td>${eur(o.precio)}</td></tr><tr><th>Impuestos (${o.tipo==='NPL'?'AJD':'ITP'})</th><td>${eur(c.imp)}</td></tr><tr><th>Notaría y registro</th><td>${eur(c.not)}</td></tr><tr><th>Gestión y procedimiento</th><td>${eur(o.gastos)}</td></tr><tr><th>Honorarios de ONUS</th><td>${eur(c.hon)}</td></tr><tr class="total"><th>Coste total</th><td>${eur(c.coste)}</td></tr><tr><th>Salida estimada</th><td>${eur(c.salida)}</td></tr><tr class="destacada"><th>Margen</th><td>${eur(c.margen)}</td></tr><tr><th>Plazo estimado</th><td>${Math.round(c.plazo)} meses</td></tr></table>
-    <div class="resumen-rent"><div><small>Descuento</small><b class="num">${pct(c.descuento)}</b></div><div><small>Rentabilidad total</small><b class="num">${pct(c.roi)}</b></div><div><small>TIR anual</small><b class="num bien">${pct(c.tir)}</b></div></div></article>
+  <div class="ficha-cab"><div><div class="linea1" style="display:flex;gap:8px;margin-bottom:10px"><span class="etiqueta ${o.tipo}">${TIPOS[o.tipo]}</span></div><h1>${o.titular}</h1><span class="ref">${o.situacion}</span></div>
+  <button class="boton boton-secundario boton-pequeno no-imprimir" id="imprimir">Imprimir las dos piezas en PDF</button></div>
+  <div class="fichas-onus" id="imprimible">
+   <div class="pieza-marco">${pOportunidad(o,c)}<button class="boton boton-secundario boton-pequeno no-imprimir" id="png-oportunidad">Descargar la oportunidad en PNG</button></div>
+   <div class="pieza-marco">${pCuadro(o,c)}<button class="boton boton-secundario boton-pequeno no-imprimir" id="png-cuadro">Descargar el cuadro de inversión en PNG</button></div>
   </div>
+  <div class="bajo-fichas no-imprimir"><span style="color:var(--pizarra);font-size:14px">Escenario de salida</span><div class="escenarios" role="group" aria-label="Escenario">${['conservador','base','optimista'].map(e=>`<button data-esc="${e}" aria-pressed="${est.esc===e}">${e[0].toUpperCase()+e.slice(1)}</button>`).join('')}</div></div>
   <div class="participar no-imprimir"><div><h3>${dentro?'Ya participas en esta operación':'Participar en esta operación'}</h3><p>${dentro?`Has solicitado ${eur(dentro.importe)}. Tu gestor te enviará la documentación para firmar.`:'Indica el importe. Tu gestor te llamará para revisar la documentación antes de firmar.'}</p></div>
    ${dentro?'':`<div class="importe"><input id="importe" type="text" inputmode="numeric" value="${(Math.min(o.precio,50000)).toLocaleString('es-ES')}" aria-label="Importe en euros"><button class="boton boton-laton" id="participar">Solicitar participación</button></div>`}</div>`;
   $('#volver').addEventListener('click',()=>ir('off'));
   $('#imprimir').addEventListener('click',()=>window.print());
+  $('#png-oportunidad').addEventListener('click',e=>descargar('pieza-oportunidad',`ONUS-oportunidad-${o.id}.png`,e.currentTarget));
+  $('#png-cuadro').addEventListener('click',e=>descargar('pieza-cuadro',`ONUS-cuadro-de-inversion-${o.id}.png`,e.currentTarget));
   p.querySelectorAll('[data-esc]').forEach(b=>b.addEventListener('click',()=>{est.esc=b.dataset.esc;vFicha(p)}));
   const bp=$('#participar');if(bp)bp.addEventListener('click',()=>{const v=parseInt($('#importe').value.replace(/\D/g,''),10)||0;if(v<10000){toast('El importe mínimo es de 10.000 €.');return}
-    est.mias.push({id:o.id,tipo:o.tipo,titulo:o.titulo,importe:v,fecha:new Date().toLocaleDateString('es-ES'),estado:'Pendiente de firma'});toast(`Solicitud enviada: ${eur(v)} en ${o.titulo.toLowerCase()}.`);vFicha(p)});
+    est.mias.push({id:o.id,tipo:o.tipo,titulo:o.titular,importe:v,fecha:new Date().toLocaleDateString('es-ES'),estado:'Pendiente de firma'});toast(`Solicitud enviada: ${eur(v)} en ${o.titular}.`);vFicha(p)});
 }
 
 /* Desarrollo inmobiliario */
@@ -934,12 +1097,19 @@ function procesar(){
     const e=fila.querySelector('.estado');e.textContent='Fichas listas';e.classList.add('hecho');
     i++},420);
 }
+// la provincia de cada municipio de la cartera de ejemplo, para el ITP de su comunidad
+const PROVINCIA={Cartagena:'Murcia',Valencia:'Valencia',Fuengirola:'Málaga',Madrid:'Madrid',Lorca:'Murcia',Elche:'Alicante',Málaga:'Málaga',Murcia:'Murcia','Alcalá de Henares':'Madrid',Torrent:'Valencia','San Javier':'Murcia',Benalmádena:'Málaga'};
 function publicar(){
-  CARTERA.forEach((f,i)=>{const id='fa-'+i;if(OPS.find(o=>o.id===id))return;const v=f[4],npl=f[1]==='NPL',sup=60+((i*37)%140);
-    const titulos={Residencial:npl?'Crédito hipotecario sobre vivienda':'Vivienda',Comercial:npl?'Crédito sobre local comercial':'Local comercial',Industrial:'Nave industrial'};
-    OPS.push({id,tipo:f[1],titulo:f[1]==='CDR'?'Cesión de remate de '+(f[3]==='Residencial'?'vivienda':'local'):titulos[f[3]],municipio:f[2],provincia:f[2],uso:f[3],sup,anio:1990+(i*3)%30,ref:f[0],
-      nominal:npl?v:undefined,intereses:npl?Math.round(v*.11):undefined,costas:npl?Math.round(v*.05):undefined,valor:Math.round(v*(npl?.92:1.0)),precio:Math.round(v*(npl?.56:.72)),salida:Math.round(v*(npl?.86:.95)),gastos:Math.round(v*.05),plazo:npl?20:9,
-      situacion:npl?'Procedimiento de ejecución en curso.':f[1]==='CDR'?'Remate aprobado. Plazo para la cesión abierto.':'Inmueble adjudicado a la entidad.',ocupacion:i%3?'Libre':'Ocupada',garantia:npl?'Hipoteca de primer rango':f[1]==='CDR'?'Adjudicación judicial':'Pleno dominio'});
+  CARTERA.forEach((f,i)=>{const id='fa-'+i;if(OPS.find(o=>o.id===id))return;const v=f[4],npl=f[1]==='NPL',sup=60+((i*37)%140),res=f[3]==='Residencial';
+    const cosa={Residencial:'vivienda',Comercial:'local comercial',Industrial:'nave industrial'}[f[3]];
+    const titulo=npl?'Crédito sobre '+cosa:f[1]==='CDR'?'Cesión de remate de '+cosa:cosa.charAt(0).toUpperCase()+cosa.slice(1);
+    OPS.push({id,tipo:f[1],titulo,titular:titulo+' en '+f[2],corto:f[2],municipio:f[2],provincia:PROVINCIA[f[2]],uso:f[3],sup,anio:1990+(i*3)%30,refs:[f[0]],
+      rasgos:res?[(2+i%3)+' hab.']:['Planta baja'],extras:'Activo de la cartera del fondo A, octubre de 2026',pastillas:[i%3?'Libre de ocupantes':'Ocupado','Cartera fondo A'],cerca:'Ubicación exacta en la documentación de la operación.',
+      nominal:npl?v:undefined,intereses:npl?Math.round(v*.11):undefined,costas:npl?Math.round(v*.05):undefined,
+      precio:Math.round(v*(npl?.56:.68)/1000)*1000,hon:npl?6000:8000,capex:npl?7000:Math.round(v*.03/100)*100,ibi:npl?0:600,comu:npl||!res?0:900,
+      comparable:{texto:npl?'Valor de mercado del colateral':'Inmueble similar en la zona, en venta',corto:npl?'valor del colateral':'inmueble similar en venta',precio:Math.round(v*(npl?.92:1.0)/1000)*1000},
+      salida:Math.round(v*(npl?.86:.95)/1000)*1000,meses:npl?20:8,
+      situacion:npl?'Procedimiento de ejecución en curso.':f[1]==='CDR'?'Remate aprobado. Plazo para la cesión abierto.':'Inmueble adjudicado a la entidad.',ocupacion:i%3?'Libre de ocupantes':'Ocupado',garantia:npl?'Hipoteca de primer rango':f[1]==='CDR'?'Adjudicación judicial':'Pleno dominio'});
     est.nuevas.add(id)});
   toast('12 operaciones publicadas. Los inversores ya las ven en el marketplace.');
   ir('off',{filtro:'Todas'});
